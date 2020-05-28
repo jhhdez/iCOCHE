@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#ff7043</color>
+    <color name="colorPrimaryDark">#e64a19</color>
+    <color name="colorAccent">#f50057</color>
+    <color name="colorCardProfile">#fcb99c</color>
+
+    <color name="colorCardMap">#f67280</color>
+
+    <color name="colorCardHistory">#c06c84</color>
+
+    <color name="colorCardSettings">#6c5b7b</color>
+
+    <color name="colorCardHelp">#355c7d</color>
+
+    <color name="colorWhite">#ffffff</color>
+
+    <color name="colorBackground">#fcb99c</color>
+</resources>
