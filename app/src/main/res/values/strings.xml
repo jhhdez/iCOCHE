@@ -14,4 +14,13 @@
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
+    <string name="sett_alarma">Setting Alarm</string>
+    <string name="label">Call Alarm</string>
+    <string name="Only_phone_number">Only phone number</string>
+    <string name="Medium_sensitivity">Medium sensitivity</string>
+    <string name="High_sensitivity">High sensitivity</string>
+    <string name="Warning">Warning</string>
+    <string name="Text_notify">By default the alarm is configured for medium sensitivity and to sound from the application. If you want me to call you a number when it is activated, configure the option here.</string>
+    <string name="OK">OK</string>
+    <string name="guardar">SAVE</string>
 </resources>

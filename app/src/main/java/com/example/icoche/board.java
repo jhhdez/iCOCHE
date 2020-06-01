@@ -53,7 +53,7 @@ public class board extends AppCompatActivity {
         newsMenu.add(new Menu("Mi iCoche","Descripcion",R.drawable.perfil));
         newsMenu.add(new Menu("iAlarma","Descripcion",R.drawable.para_alarma));
         newsMenu.add(new Menu("¿Dónde esta mi iCoche?","Descripcion",R.drawable.para_localizacion));
-        newsMenu.add(new Menu("iRescate","Descripcion",R.drawable.para_accidente));
+        newsMenu.add(new Menu("Mi Radio","Descripcion",R.drawable.music));
         newsMenu.add(new Menu("GPS","Descripcion",R.drawable.para_gps));
         newsMenu.add(new Menu("Repárame","Descripcion",R.drawable.para_mantenimiento));
         newsMenu.add(new Menu("iGreen","Descripcion",R.drawable.para_contaminacion));

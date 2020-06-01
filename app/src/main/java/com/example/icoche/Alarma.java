@@ -1,18 +1,29 @@
 package com.example.icoche;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,9 +35,19 @@ public class Alarma extends AppCompatActivity implements SensorEventListener {
     private float prevX = 0, prevY = 0, prevZ = 0;
     private float curX = 0, curY = 0, curZ = 0;
     Button btn;
+    ImageButton btn_setting;
     private SensorManager sensorManager;
-    Sensor ac;
     MediaPlayer mp;
+    private static final String TAG = "MyActivity";
+    String texto;
+    public static final String SHARED_PREFS = "sharedPrefs";
+    public static final String TEXT = "text";
+    public static final String SWITCH1 = "switch1";
+    private boolean switchSensibility;
+
+    private final int PHONE_CALL_CODE = 10;
+    int CurrentSDKVersion=Build.VERSION.SDK_INT;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,10 +55,19 @@ public class Alarma extends AppCompatActivity implements SensorEventListener {
         setContentView(R.layout.activity_alarma);
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        texto = sharedPreferences.getString(TEXT, null);
+        switchSensibility = sharedPreferences.getBoolean(SWITCH1, false);
+
+
+
+
         ActionBar actionbar = getSupportActionBar();
         actionbar.hide();
 
         mp = MediaPlayer.create(this, R.raw.audio);
+
+        //leer estado de la configuracion
 
         btn = findViewById(R.id.textButton);
         btn.setOnClickListener(new View.OnClickListener() {
@@ -54,7 +84,19 @@ public class Alarma extends AppCompatActivity implements SensorEventListener {
             }
         });
 
+        btn_setting = findViewById(R.id.btn_settings);
+        btn_setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent settings = new Intent(Alarma.this, setting_alarma.class );
+                startActivity(settings);
+            }
+        });
+
+
+
     }
+
 
     /*@Override
     protected void onResume() {
@@ -102,8 +144,14 @@ public class Alarma extends AppCompatActivity implements SensorEventListener {
                 if (movement > min_movement) {
                     if (current_time - last_movement >= limit) {
                         Toast.makeText(getApplicationContext(), "Hay movimiento de " + movement, Toast.LENGTH_SHORT).show();
-                        mp.setLooping(true);
-                        mp.start();
+                        if (texto != null) {
+                            Intent intentCall = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + texto));
+                            startActivity(intentCall);
+                        }else{
+                            mp.setLooping(true);
+                            mp.start();
+                        }
+
                     }
                     last_movement = current_time;
                 }

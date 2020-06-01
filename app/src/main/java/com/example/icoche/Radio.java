@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,13 +15,14 @@ import java.io.IOException;
 
 public class Radio extends AppCompatActivity {
 
-    Button btn;
+    //Button btn;
     String stream = "http://20073.live.streamtheworld.com/LOS40.mp3";
     Boolean prepared = false;
     Boolean started = false;
     MediaPlayer mediaPlayer;
     private ProgressDialog progressDialog;
     private boolean initialStage = true;
+    ImageButton btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,11 +30,13 @@ public class Radio extends AppCompatActivity {
         setContentView(R.layout.activity_radio);
         btn = findViewById(R.id.audioStreamBtn);
         btn.setEnabled(false);
-        btn.setText("Cargando");
+        btn.setImageResource(R.drawable.ic_slow_motion_video_24px);
 
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         progressDialog = new ProgressDialog(this);
+
+
 
         new PlayerTask().execute(stream);
 
@@ -43,11 +47,13 @@ public class Radio extends AppCompatActivity {
                 if (started) {
                     started = false;
                     mediaPlayer.pause();
-                    btn.setText("Reproducir");
+                    //btn.setText("Reproducir");
+                    btn.setImageResource(R.drawable.ic_play_circle_outline_241px);
                 } else {
                     started = true;
                     mediaPlayer.start();
-                    btn.setText("Pausar");
+                    //btn.setText("Pausar");
+                    btn.setImageResource(R.drawable.ic_pause_circle_outline_242px);
 
                 }
             }
@@ -81,7 +87,8 @@ public class Radio extends AppCompatActivity {
                  super.onPostExecute(aBoolean);
 
                  btn.setEnabled(true);
-                 btn.setText("Reproducir");
+                 //btn.setText("Reproducir");
+                 btn.setImageResource(R.drawable.ic_play_circle_outline_241px);
              }
          }
 
