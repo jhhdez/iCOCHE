@@ -1,6 +1,7 @@
 package com.example.icoche;
 
 import android.app.ProgressDialog;
+import android.content.pm.ActivityInfo;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
@@ -28,6 +29,10 @@ public class Radio extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_radio);
+
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+
         btn = findViewById(R.id.audioStreamBtn);
         btn.setEnabled(false);
         btn.setImageResource(R.drawable.ic_slow_motion_video_24px);

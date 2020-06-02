@@ -1,6 +1,7 @@
 package com.example.icoche;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -46,7 +47,7 @@ public class Alarma extends AppCompatActivity implements SensorEventListener {
     private boolean switchSensibility;
 
     private final int PHONE_CALL_CODE = 10;
-    int CurrentSDKVersion=Build.VERSION.SDK_INT;
+    int CurrentSDKVersion = Build.VERSION.SDK_INT;
 
 
     @Override
@@ -55,11 +56,11 @@ public class Alarma extends AppCompatActivity implements SensorEventListener {
         setContentView(R.layout.activity_alarma);
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         texto = sharedPreferences.getString(TEXT, null);
         switchSensibility = sharedPreferences.getBoolean(SWITCH1, false);
-
-
 
 
         ActionBar actionbar = getSupportActionBar();
@@ -88,11 +89,10 @@ public class Alarma extends AppCompatActivity implements SensorEventListener {
         btn_setting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent settings = new Intent(Alarma.this, setting_alarma.class );
+                Intent settings = new Intent(Alarma.this, setting_alarma.class);
                 startActivity(settings);
             }
         });
-
 
 
     }
@@ -117,8 +117,10 @@ public class Alarma extends AppCompatActivity implements SensorEventListener {
     }
 
     @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {}
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+    }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onSensorChanged(SensorEvent event) {
         synchronized (this) {
@@ -146,6 +148,16 @@ public class Alarma extends AppCompatActivity implements SensorEventListener {
                         Toast.makeText(getApplicationContext(), "Hay movimiento de " + movement, Toast.LENGTH_SHORT).show();
                         if (texto != null) {
                             Intent intentCall = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + texto));
+                            if (checkSelfPermission(Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                                // TODO: Consider calling
+                                //    Activity#requestPermissions
+                                // here to request the missing permissions, and then overriding
+                                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                //                                          int[] grantResults)
+                                // to handle the case where the user grants the permission. See the documentation
+                                // for Activity#requestPermissions for more details.
+                                return;
+                            }
                             startActivity(intentCall);
                         }else{
                             mp.setLooping(true);

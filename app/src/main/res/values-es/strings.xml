@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">iCoche</string>
+    <string name="title_activity_board">board</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Configuraciones</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_tools">Tools</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_send">Send</string>
+    <string name="sett_alarma">Ajuste de alarma</string>
+    <string name="label">Alarma de llamada</string>
+    <string name="Only_phone_number">Solo número de teléfono</string>
+    <string name="Medium_sensitivity">Sensibilidad media</string>
+    <string name="High_sensitivity">Alta sensibilidad</string>
+    <string name="Warning">Advertencia</string>
+    <string name="Text_notify">Por defecto, la alarma está configurada para sensibilidad media y para que suene desde la aplicación. Si desea que le llame a un número cuando esté activado, configure la opción aquí.</string>
+    <string name="OK">ACEPTAR</string>
+    <string name="guardar">GUARDAR</string>
+    <string name="channel_name">nombre</string>
+    <string name="channel_description">descripcion</string>
+    <string name="alert">Alerta</string>
+    <string name="revision">Ha recorrido muchos kilómetros desde la última vez. Ve por su mecánico.</string>
+    <string name="km">Inserte solo la distancia para la revisión en km</string>
+    <string name="distance">Distancia a recorrer.</string>
+    <string name="loremp_ipsum_descripcion">Tu computadora a bordo</string>
+    <string name="radio">Mi Radio</string>
+    <string name="reparame">Repárame</string>
+    <string name="descripcion">\@Hecho por Juan Carlos Hernández Hernández</string>
+    <string name="where">¿Donde está mi coche?</string>
+    <string name="icoche">Mi iCoche</string>
+    <string name="dp_alarma">Configure una alarma para su automóvil desde aquí. Haz que suene o te llame por teléfono.</string>
+    <string name="dp_radio">Ten tu lista de reproducción más cerca que nunca. Tu viaje con buena música.</string>
+    <string name="dp_gps">Tus rutas más cerca de ti.</string>
+    <string name="dp_reparame">Déjame ayudarte con tus controles mecánicos.</string>
+    <string name="dp_iGreen">Controla tus emisiones. Deja que florezca el verde.</string>
+    <string name="dp_where">Verifique dónde estacionaste tu automóvil por última vez.</string>
+    <string name="dp_iCoche">Esta es tu zona de inventario.</string>
+    <string name="error">ERROR</string>
+    <string name="mess_error">Esta función aún no está desarrollada. Lo sentimos.</string>
+    <string name="activar">ACTIVAR</string>
+</resources>

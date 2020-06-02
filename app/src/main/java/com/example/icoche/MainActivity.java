@@ -1,6 +1,7 @@
 package com.example.icoche;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Handler;
 import android.os.Bundle;
 import android.view.WindowManager;
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ActionBar actionbar = getSupportActionBar();
         actionbar.hide();
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         topAnim = AnimationUtils.loadAnimation(this,R.anim.top_anim);
         botAnim = AnimationUtils.loadAnimation(this,R.anim.bot_anim);

@@ -1,47 +1,39 @@
 package com.example.icoche;
 
 import android.Manifest;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
-import android.location.LocationManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
-import android.os.Environment;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
+import androidx.core.app.NotificationCompat;
 
-import com.google.android.material.navigation.NavigationView;
-
-import androidx.drawerlayout.widget.DrawerLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.IOException;
@@ -49,7 +41,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import static java.lang.Thread.sleep;
 
 public class board extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener,
         GoogleApiClient.ConnectionCallbacks {
@@ -67,12 +58,22 @@ public class board extends AppCompatActivity implements GoogleApiClient.OnConnec
     Double lblLongitud;
     Geocoder geocoder;
     List<Address> direccion;
-    Double distancia;
+    Double distancia = 0.0;
+    Location cero;
+    Location fin;
+    int flag = 0;
+    private String TAG = "VEEEEERRRR";
+
+    Notification n;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
+
+        getSupportActionBar().hide();
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
 
 
         lvRss = findViewById(R.id.recycler);
@@ -87,16 +88,13 @@ public class board extends AppCompatActivity implements GoogleApiClient.OnConnec
         geocoder = new Geocoder(this, Locale.getDefault());
 
 
-
-
-
-        newsMenu.add(new Menu("iAlarma","Descripcion",R.drawable.para_alarma));
-        newsMenu.add(new Menu("Mi Radio","Descripcion",R.drawable.music));
-        newsMenu.add(new Menu("GPS","Descripcion",R.drawable.para_gps));
-        newsMenu.add(new Menu("Repárame","Descripcion",R.drawable.para_mantenimiento));
-        newsMenu.add(new Menu("iGreen","Descripcion",R.drawable.para_contaminacion));
-        newsMenu.add(new Menu("¿Dónde esta mi iCoche?","Descripcion",R.drawable.para_localizacion));
-        newsMenu.add(new Menu("Mi iCoche","Descripcion",R.drawable.perfil));
+        newsMenu.add(new Menu("iAlarma",getString(R.string.dp_alarma),R.drawable.para_alarma));
+        newsMenu.add(new Menu(getString(R.string.radio),getString(R.string.dp_radio),R.drawable.music));
+        newsMenu.add(new Menu("GPS",getString(R.string.dp_gps),R.drawable.para_gps));
+        newsMenu.add(new Menu(getString(R.string.reparame),getString(R.string.dp_reparame),R.drawable.para_mantenimiento));
+        newsMenu.add(new Menu("iGreen",getString(R.string.dp_iGreen),R.drawable.para_contaminacion));
+        newsMenu.add(new Menu(getString(R.string.where),getString(R.string.dp_where),R.drawable.para_localizacion));
+        newsMenu.add(new Menu(getString(R.string.icoche),getString(R.string.dp_iCoche),R.drawable.perfil));
 
 
 
@@ -157,12 +155,11 @@ public class board extends AppCompatActivity implements GoogleApiClient.OnConnec
                             Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(map));
                             startActivity(i);
                             return true;
-                        /*case 5:
-                            Mensaje();
-                            //Intent f = new Intent(board.this, Reparame.class);
-                            //startActivity(f);
+                        case 3:
+                            createNotificationChannel();
+                            addNotification();
                             return true;
-                        case 6:
+                        /*case 6:
                             Mensaje();
                             //Intent g = new Intent(board.this, Green.class);
                             //startActivity(g);
@@ -187,16 +184,17 @@ public class board extends AppCompatActivity implements GoogleApiClient.OnConnec
         }
      });
 
+     //if (){
 
-
+     //}
     }
 
     public void Mensaje (){
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(board.this);
-        builder.setTitle("Error");
-        builder.setMessage("Esta funcion todavia no esta disponible.");
+        builder.setTitle(getString(R.string.error));
+        builder.setMessage(getString(R.string.mess_error));
         builder.setBackground(getResources().getDrawable(R.drawable.alert_dialog_bg, null));
-        builder.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(getString(R.string.OK), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //Do something when clicked
@@ -246,8 +244,20 @@ public class board extends AppCompatActivity implements GoogleApiClient.OnConnec
     }
     private void updateUI(Location loc) {
         if (loc != null) {
+
+            fin = loc;
             lblLatitud = loc.getLatitude();
             lblLongitud = loc.getLongitude();
+
+            if (flag == 0){
+                cero = loc;
+                flag = 1;
+            }
+
+            distancia = distancia + cero.distanceTo(fin);
+            Log.e(TAG, distancia.toString());
+
+
         } /*else {
             lblLatitud.setText("Latitud: (desconocida)");
             lblLongitud.setText("Longitud: (desconocida)");
@@ -276,29 +286,59 @@ public class board extends AppCompatActivity implements GoogleApiClient.OnConnec
             }
         }
     }
-    public void calculo(){
-        new Thread(new Runnable() {
-        public void run() {
-            try {
-                while(true) {
-                    sleep(1000);
-                    Coordenada coordenada  =getLocation();
 
-                    Location locationA = new Location("point A");
+    private void addNotification() {
+        NotificationCompat.Builder builder =
+                new NotificationCompat.Builder(this, "CHANNEL_ID")
+                        .setSmallIcon(R.drawable.ic_warning_24px) //set icon for notification
+                        .setContentTitle(getString(R.string.alert)) //set title of notification
+                        .setContentText(getString(R.string.revision))//this is notification message
+                        .setAutoCancel(true) // makes auto cancel of notification
+                        .setPriority(NotificationCompat.PRIORITY_DEFAULT); //set priority of notification
 
-                    locationA.setLatitude(lat);
-                    locationA.setLongitude(longi);
-                    Location locationB = new Location("point B");
 
-                    locationB.setLatitude(coordenada.getLat());
-                    locationB.setLongitude(coordenada.getLongg());
+        try {
+            direccion = geocoder.getFromLocation(lblLatitud, lblLongitud, 1); // 1 representa la cantidad de resultados a obtener
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-                    distancia = distancia + (locationA.distanceTo(locationB));
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        Address dir = direccion.get(0);
+
+        String map = "http://maps.google.com/maps?q=" + dir.getAddressLine(0);
+        // Donde direccion es la variable que contiene el string del textview
+
+        //Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(map));
+        Intent notificationIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(map));
+        notificationIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        //notification message will get at NotificationView
+        notificationIntent.putExtra("message", "This is a notification message");
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(pendingIntent);
+
+        // Add as notification
+        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.notify(0, builder.build());
+    }
+
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = getString(R.string.channel_name);
+            String description = getString(R.string.channel_description);
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("CHANNEL_ID", name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            if (notificationManager != null) {
+                notificationManager.createNotificationChannel(channel);
             }
         }
-    }).start();
-   }
+    }
+
 }

@@ -23,4 +23,26 @@
     <string name="Text_notify">By default the alarm is configured for medium sensitivity and to sound from the application. If you want me to call you a number when it is activated, configure the option here.</string>
     <string name="OK">OK</string>
     <string name="guardar">SAVE</string>
+    <string name="channel_name">name</string>
+    <string name="channel_description">description</string>
+    <string name="alert">Alert</string>
+    <string name="revision">He has traveled many kilometers since the last time. Go for his mechanic</string>
+    <string name="km">Insert only the distance for revision in km</string>
+    <string name="distance">Distance to travel</string>
+    <string name="loremp_ipsum_descripcion">Your on-board computer</string>
+    <string name="radio">My Radio</string>
+    <string name="reparame">Repair me</string>
+    <string name="descripcion">\@Made by Juan Carlos Hernández Hernández</string>
+    <string name="where">Where is my car?</string>
+    <string name="icoche">My iCoche</string>
+    <string name="dp_alarma">Set an alarm for your car from here. Make it ring or call you on the phone.</string>
+    <string name="dp_radio">Have your playlist closer than ever. Your trip with good music.</string>
+    <string name="dp_gps">Your routes closer to you.</string>
+    <string name="dp_reparame">Let me help you with your mechanical checks.</string>
+    <string name="dp_iGreen">Control your emissions. Let the green bloom.</string>
+    <string name="dp_where">Check where we parked your car for the last time.</string>
+    <string name="dp_iCoche">This is your inventory zone.</string>
+    <string name="error">ERROR</string>
+    <string name="mess_error">This function is not yet developed. We are sorry.</string>
+    <string name="activar">ACTIVATE</string>
 </resources>
