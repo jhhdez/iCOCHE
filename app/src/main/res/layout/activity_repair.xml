@@ -8,13 +8,12 @@
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/linearLayoutCompat"
-        android:layout_width="238dp"
+        android:layout_width="267dp"
         android:layout_height="127dp"
-        android:layout_marginStart="68dp"
-        android:layout_marginTop="95dp"
-        android:layout_marginEnd="59dp"
+        android:layout_marginStart="57dp"
+        android:layout_marginTop="92dp"
+        android:layout_marginEnd="57dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 

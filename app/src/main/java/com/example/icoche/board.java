@@ -158,6 +158,8 @@ public class board extends AppCompatActivity implements GoogleApiClient.OnConnec
                         case 3:
                             createNotificationChannel();
                             addNotification();
+                            Intent x = new Intent(board.this, RepairActivity.class);
+                            startActivity(x);
                             return true;
                         /*case 6:
                             Mensaje();

@@ -28,7 +28,7 @@
     <string name="channel_description">descripcion</string>
     <string name="alert">Alerta</string>
     <string name="revision">Ha recorrido muchos kilómetros desde la última vez. Ve por su mecánico.</string>
-    <string name="km">Inserte solo la distancia para la revisión en km</string>
+    <string name="km">Inserte solo la distancia en km</string>
     <string name="distance">Distancia a recorrer.</string>
     <string name="loremp_ipsum_descripcion">Tu computadora a bordo</string>
     <string name="radio">Mi Radio</string>

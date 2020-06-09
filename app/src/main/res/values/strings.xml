@@ -27,7 +27,7 @@
     <string name="channel_description">description</string>
     <string name="alert">Alert</string>
     <string name="revision">He has traveled many kilometers since the last time. Go for his mechanic</string>
-    <string name="km">Insert only the distance for revision in km</string>
+    <string name="km">Insert only the distance km</string>
     <string name="distance">Distance to travel</string>
     <string name="loremp_ipsum_descripcion">Your on-board computer</string>
     <string name="radio">My Radio</string>
