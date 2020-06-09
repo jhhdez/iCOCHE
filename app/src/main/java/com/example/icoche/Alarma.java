@@ -45,6 +45,7 @@ public class Alarma extends AppCompatActivity implements SensorEventListener {
     public static final String TEXT = "text";
     public static final String SWITCH1 = "switch1";
     private boolean switchSensibility;
+    boolean flag = false;
 
     private final int PHONE_CALL_CODE = 10;
     int CurrentSDKVersion = Build.VERSION.SDK_INT;
@@ -74,6 +75,7 @@ public class Alarma extends AppCompatActivity implements SensorEventListener {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                flag = true;
                 //sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
                 //ac = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
                 //sensorManager.registerListener(Alarma.this, ac,SensorManager.SENSOR_DELAY_NORMAL);
@@ -144,7 +146,7 @@ public class Alarma extends AppCompatActivity implements SensorEventListener {
                 int limit = 1500;
                 float min_movement = 1E-6f;
                 if (movement > min_movement) {
-                    if (current_time - last_movement >= limit) {
+                    if (current_time - last_movement >= limit && flag == true) {
                         Toast.makeText(getApplicationContext(), "Hay movimiento de " + movement, Toast.LENGTH_SHORT).show();
                         if (texto != null) {
                             Intent intentCall = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + texto));
@@ -166,6 +168,7 @@ public class Alarma extends AppCompatActivity implements SensorEventListener {
 
                     }
                     last_movement = current_time;
+                    flag = false;
                 }
                 prevX = curX;
                 prevY = curY;
